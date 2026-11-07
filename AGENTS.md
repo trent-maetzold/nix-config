@@ -10,6 +10,14 @@ Work only in a worktree at `~/.worktrees/<repo>/<branch>`, never in the live
 checkout. The live checkout is the running config: the out-of-store links
 point into it, so an edit or branch switch there changes the live system.
 
+Every change starts from a bead (README's Backlog). Run `bd ready`, then
+`bd update <id> --claim` before you start, and name the bead in the branch and
+PR (`nc-a3f-short-name`). Add notes to it as you go, so the next session can
+resume. Close it with `bd close <id> --reason "..."` once the PR merges, then
+`bd dolt push`. Work you discover gets its own bead
+(`--deps discovered-from:<id>`), not a TODO in code. Never create or rewrite
+epics without asking; tasks under an agreed epic are fine.
+
 Every change goes in this order:
 
 1. **Spec.** If the change alters what the repo looks like (layout, a rule, a

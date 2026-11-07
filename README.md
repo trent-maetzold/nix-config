@@ -8,6 +8,23 @@ place, commit, push, and pull on the next machine.
 This README is the spec: it describes the repo as it should be, and the code
 follows it. Rules for changing it are in AGENTS.md.
 
+It's also the backlog for every infrastructure project, tracked in
+[beads](https://github.com/gastownhall/beads) (`bd`). Projects that grow
+their own repo get their own beads there.
+
+## Backlog
+
+Each project is an epic, and its tasks sit under it with the dependencies
+between them. `bd ready` lists what can start now; `bd show <id>` has the
+context to pick a task up cold.
+
+- Issues live in a Dolt database in the checkout's `.beads/`, shared by every
+  worktree. Only its config (`.beads/config.yaml`, `metadata.json`,
+  `.gitignore`) is committed.
+- `bd dolt push` and `bd dolt pull` sync it through `refs/dolt/data` on
+  GitHub. A fresh clone gets it with `bd bootstrap`.
+- Priorities: P0 blocks everything else, P1 is next, P2 soon, P3 someday.
+
 ## Use the modules elsewhere
 
 The public API is `modules.nixos.<name>` and `modules.homeManager.<name>`. A
@@ -53,6 +70,7 @@ users/<user>/config/<app>/        that user's out-of-store configs, mirroring ~/
 services/<service>/default.nix    nixosModules.<service>: a service this flake runs
 services/<service>/*              that service's data files
 checks/                           checks: the rules in this README, enforced
+.beads/                           beads config; its database is local, synced via Dolt
 secrets.yaml, .sops.yaml          every secret, and who can decrypt it
 justfile                          operational recipes (install, deploy, rotate keys)
 stacks/, terraform/               container stacks and OCI infra, still to be migrated
