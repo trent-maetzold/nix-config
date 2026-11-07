@@ -151,6 +151,10 @@ A rule worth writing down is worth a check.
   options; `-b` is a CLI flag, so it's on you.
 - A new host, user or service is listed in `flake.nix` imports. A new host or
   user also gets a row in the README's Machines table.
+- Anything you fix outside Nix (distro packages, `/etc`, system units, app
+  configs not yet adopted) gets a `docs/notes/<topic>.md` in the same session:
+  symptom, root causes, every change with its exact path and contents, and
+  how to verify it. Commit it even when the fix is local to one machine.
 
 ## Secrets
 

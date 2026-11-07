@@ -55,6 +55,7 @@ services/<service>/*              that service's data files
 checks/                           checks: the rules in this README, enforced
 secrets.yaml, .sops.yaml          every secret, and who can decrypt it
 justfile                          operational recipes (install, deploy, rotate keys)
+docs/notes/<topic>.md             fixes made outside Nix, written so they can be redone
 stacks/, terraform/               container stacks and OCI infra, still to be migrated
 ```
 
@@ -199,6 +200,13 @@ fails until that config is moved. Nothing here sets `backupFileExtension`,
 Nix owns every installed package; there's no mise and no global npm or pip.
 A project's own toolchain lives in that project's flake devShell, loaded by
 direnv.
+
+On a machine that isn't NixOS, the distro keeps what Home Manager can't
+manage: system services, kernel drivers and `/etc` (tailscaled, Citrix, the
+camera stack on muninn). Homes there set `targets.genericLinux.gpu`, so Nix
+apps can load the distro's graphics drivers. Every fix made outside Nix gets a
+note in `docs/notes/`: the symptom, the causes, the exact changes, and how to
+verify them. When the thing moves into Nix, its note goes.
 
 ### Checkouts and worktrees
 
